@@ -3,7 +3,6 @@ package com.crafts.profileservice.controller;
 import com.crafts.profileservice.advice.CustomControllerAdvice;
 import com.crafts.profileservice.dto.SubscriptionRequestDTO;
 import com.crafts.profileservice.dto.UserProfileDTO;
-import com.crafts.profileservice.dto.UserProfileValidationResultDTO;
 import com.crafts.profileservice.exception.UserProfileBusinessException;
 import com.crafts.profileservice.service.UserProfileService;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -12,8 +12,6 @@ import com.crafts.profileservice.exception.UserProfileRepositoryException;
 import com.crafts.profileservice.mapper.UserProfileMapper;
 import com.crafts.profileservice.producer.UserProfileSubmissionKafkaProducer;
 import com.crafts.profileservice.repository.impl.UserProfileRepositoryImpl;
-import com.crafts.profileservice.util.JsonUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

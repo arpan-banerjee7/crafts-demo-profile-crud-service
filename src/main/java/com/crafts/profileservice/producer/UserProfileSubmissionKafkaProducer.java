@@ -26,7 +26,7 @@ public class UserProfileSubmissionKafkaProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    @Retry(name = "userProfileRetry")
+    @Retry(name = "kafka-producer-retry", fallbackMethod = "sendFallback")
     public <T> void send(String message, String eventType, String key) throws KafkaProcessingException {
         String userProfileSubmissionTopic = kafkaPropsConfig.getUserProfileSubmissionTopic();
         if (null==userProfileSubmissionTopic) {
@@ -43,5 +43,9 @@ public class UserProfileSubmissionKafkaProducer {
             log.info("Exception in sending message to Topic: {}, Event type {}", userProfileSubmissionTopic, eventType);
             throw new KafkaProcessingException("Error while sending message to :" + userProfileSubmissionTopic, e);
         }
+    }
+    // Fallback method
+    public <T> void sendFallback(String message, String eventType, String key, Exception e) {
+        log.error("Failed to send message after validation for userId: {}. Reason: {}", key, e.getMessage());
     }
 }

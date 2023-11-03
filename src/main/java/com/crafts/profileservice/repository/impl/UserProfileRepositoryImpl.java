@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Collections;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Repository
 public class UserProfileRepositoryImpl implements UserProfileRepository {
@@ -89,5 +90,21 @@ public class UserProfileRepositoryImpl implements UserProfileRepository {
             throw new NoSuchElementException("User profile not found for ID: " + userId);
         }
     }
+
+    public boolean existsByIdempotencyKey(String idempotencyKey) {
+        QueryRequest queryRequest = new QueryRequest()
+                .withTableName("user_profile")
+                .withIndexName("idempotencyKey-index")
+                .withKeyConditionExpression("idempotencyKey = :idempotencyKeyVal")
+                .withExpressionAttributeValues(Collections.singletonMap(":idempotencyKeyVal", new AttributeValue().withS(idempotencyKey)));
+
+        try {
+            QueryResult queryResult = dynamoDBClient.query(queryRequest);
+            return !queryResult.getItems().isEmpty();
+        } catch (AmazonDynamoDBException e) {
+            throw new UserProfileRepositoryException("Failed to query by idempotency key due to DynamoDB error", e);
+        }
+    }
+
 
 }

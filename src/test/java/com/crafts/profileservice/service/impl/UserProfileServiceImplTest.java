@@ -2,6 +2,7 @@ package com.crafts.profileservice.service.impl;
 
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.crafts.profileservice.dto.SubscriptionRequestDTO;
+import com.crafts.profileservice.dto.TaxIdentifiersDTO;
 import com.crafts.profileservice.dto.UserProfileDTO;
 import com.crafts.profileservice.dto.UserProfileValidationResultDTO;
 import com.crafts.profileservice.entity.UserProfileEO;
@@ -79,8 +80,10 @@ public class UserProfileServiceImplTest {
     @Test
     public void testSaveUserProfile_ValidProfile_SavesSuccessfully() throws KafkaProcessingException {
         UserProfileDTO mockInputDTO = new UserProfileDTO();
+        mockInputDTO.setEmail("test@123");
+        mockInputDTO.setLegalName("test-admin");
         mockInputDTO.setSubscriptions(List.of("product_1"));
-
+        mockInputDTO.setTaxIdentifiers(new TaxIdentifiersDTO("pan", "ein"));
         UserProfileEO mockEO = new UserProfileEO();
         UserProfileDTO mockOutputDTO = new UserProfileDTO();
 

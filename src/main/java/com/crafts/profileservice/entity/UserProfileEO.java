@@ -22,6 +22,8 @@ public class  UserProfileEO {
     private String userId;
 
     @DynamoDBAttribute
+    private String idempotencyKey;
+    @DynamoDBAttribute
     private String companyName;
 
     @DynamoDBAttribute

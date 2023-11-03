@@ -22,10 +22,9 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -62,20 +61,31 @@ public class UserProfileServiceImpl implements UserProfileService {
             if (userProfileDTO.getSubscriptions().isEmpty()) {
                 throw new IllegalArgumentException("User should be subscribed to at least one product");
             }
+            // Generate idempotency key based on user details
+            String idempotencyKey = generateIdempotencyKey(userProfileDTO.getEmail(), userProfileDTO.getTaxIdentifiers().getPan(), userProfileDTO.getLegalName());
+
+            // Check if the user profile already exists with the generated idempotency key
+            if (userProfileRepository.existsByIdempotencyKey(idempotencyKey)) {
+                // If the user profile exists, it's a duplicate request. Log and return the existing user profile.
+                log.info("Duplicate request detected with idempotency key {}. User profile already exists.", idempotencyKey);
+                throw new UserProfileBusinessException("Duplicate entry detected. User already exists");
+            }
+            userProfileDTO.setIdempotencyKey(idempotencyKey);
             userProfileDTO.setConsolidatedStatus(ValidationStatusEnum.IN_PROGRESS.getStatus());
             UserProfileEO userProfileEO = userProfileMapper.convertDTOTOEO(userProfileDTO);
             log.info("Saving user details with initial subscription status as IN_PROGRESS");
             userProfileEO = userProfileRepository.save(userProfileEO);
             UserProfileDTO savedUserDTO = userProfileMapper.convertEOtoDTO(userProfileEO);
-            userProfileDTO.setUserId(savedUserDTO.getUserId());
-            userProfileDTO.setCreateFlow(true);
-            sendMessageToKafka(userProfileDTO, "USER_PROFILE_CREATE");
+            savedUserDTO.setCreateFlow(true);
+            sendMessageToKafka(savedUserDTO, "USER_PROFILE_CREATE");
             return savedUserDTO;
         } catch (KafkaProcessingException e) {
             log.error("Failed to send message to kafka.", e);
             throw new UserProfileBusinessException("Failed to send message to kafka to proceed with further validations");
         } catch (UserProfileRepositoryException e) {
             throw new UserProfileBusinessException("Error while saving user profile.", e);
+        } catch (NoSuchAlgorithmException e) {
+            throw new UserProfileBusinessException("Unable to generate idempotency key due to missing algorithm.", e);
         }
     }
 
@@ -189,7 +199,12 @@ public class UserProfileServiceImpl implements UserProfileService {
             throw new UserProfileBusinessException("Error while retrieving status for the user", e);
         }
     }
-
+    private String generateIdempotencyKey(String email, String pan, String name) throws NoSuchAlgorithmException, NoSuchAlgorithmException {
+        String input = email + ":" + pan + ":" + name;
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] digest = md.digest(input.getBytes());
+        return Base64.getEncoder().encodeToString(digest);
+    }
     private void sendMessageToKafka(UserProfileDTO userProfileDTO, String eventType) throws KafkaProcessingException {
         try {
             String jsonMessage = JsonUtil.writeToJson(userProfileDTO);

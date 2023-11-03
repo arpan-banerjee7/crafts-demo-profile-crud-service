@@ -18,6 +18,8 @@ public class UserProfileDTO implements Serializable {
 
     private String userId;
 
+    private String idempotencyKey;
+
     private String productId;
 
     private boolean createFlow;

@@ -4,6 +4,7 @@ import com.crafts.profileservice.entity.UserProfileEO;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
 import java.util.Map;
+import java.util.Optional;
 
 public interface UserProfileRepository {
     UserProfileEO save(UserProfileEO userProfile);
@@ -15,4 +16,5 @@ public interface UserProfileRepository {
     UserProfileEO update(String userId, UserProfileEO userProfile);
 
     Map<String,AttributeValue> getUserProfileAttributesById(String userId, String projectExpression);
+    boolean existsByIdempotencyKey(String idempotencyKey);
 }

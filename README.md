@@ -44,7 +44,7 @@ Aim for:
 - [crafts_demo_config](https://github.com/arpan-banerjee7/crafts_demo_config)
 - [crafts_demo_config_server](https://github.com/arpan-banerjee7/crafts_demo_config_server)
 
-  **Frontend**
+**Frontend**
 - [crafts-demo-user-profile-UI](https://github.com/arpan-banerjee7/crafts-demo-user-profile-UI)
 
   **Supporting Services** (Mimicks 3rd party apis)

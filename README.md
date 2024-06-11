@@ -55,12 +55,21 @@ Aim for:
 # HLD
 ![user-profile-validation-system_HLD (1)](https://github.com/arpan-banerjee7/crafts-demo-profile-crud-service/assets/62155359/a34b2940-8e37-4ba7-b992-e926ac887567)
 
+# Swagger UI
+![image](https://github.com/arpan-banerjee7/crafts-demo-profile-crud-service/assets/62155359/14e52a0c-c863-4194-9f5b-174cd9396bd1)
+
 # UI Screenshots
 ![image](https://github.com/arpan-banerjee7/crafts-demo-profile-crud-service/assets/62155359/3c0ed446-9297-4f41-9fea-d7ae2448ecfc)
 
 ![image](https://github.com/arpan-banerjee7/crafts-demo-profile-crud-service/assets/62155359/21e78d0a-76b4-4d8a-bd6c-f2754ce3d033)
 
 ![image](https://github.com/arpan-banerjee7/crafts-demo-profile-crud-service/assets/62155359/79ad8f33-bdcb-4102-926d-c0f1cde3667d)
+
+# Circuit Breaker using resillience4j
+![image](https://github.com/arpan-banerjee7/crafts-demo-profile-crud-service/assets/62155359/9451610a-e717-4186-a5ab-f024d78950dc)
+
+
+
 
 
 

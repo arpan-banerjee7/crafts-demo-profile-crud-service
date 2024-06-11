@@ -1,5 +1,3 @@
-### profile_service
-
 # PROBLEM STATEMENT
 A system supports below products for Small Business owners:
 1. SmartBooks (FB) for Accounting
@@ -37,9 +35,9 @@ Aim for:
 6. As a surprise, you can also build UI experience in React to update the profile fields.
 7. List out the Non-Functional areas that you would consider to deploy this application  to Prod and how do you suggest to achieve the same.
 
-
-## Dependent Projects
+## Dependent Microservices
 **Backend**
+- [crafts-demo-profile-crud-service](https://github.com/arpan-banerjee7/crafts-demo-profile-crud-service)
 - [crafts-demo-consumer](https://github.com/arpan-banerjee7/crafts-demo-consumer)
 - [crafts_demo_config](https://github.com/arpan-banerjee7/crafts_demo_config)
 - [crafts_demo_config_server](https://github.com/arpan-banerjee7/crafts_demo_config_server)
@@ -47,10 +45,23 @@ Aim for:
 **Frontend**
 - [crafts-demo-user-profile-UI](https://github.com/arpan-banerjee7/crafts-demo-user-profile-UI)
 
-  **Supporting Services** (Mimicks 3rd party apis)
-  - [crafts_demo_product_val_1](https://github.com/arpan-banerjee7/crafts_demo_product_val_1)
-  - [crafts_demo_product_val_2](https://github.com/arpan-banerjee7/crafts_demo_product_val_2)
-  - [crafts_demo_product_val_3](https://github.com/arpan-banerjee7/crafts_demo_product_val_3)
-  - [crafts_demo_product_val_4](https://github.com/arpan-banerjee7/crafts_demo_product_val_4)
-  
+**Supporting Services** (Mimicks 3rd party apis)
+- [crafts_demo_product_val_1](https://github.com/arpan-banerjee7/crafts_demo_product_val_1)
+- [crafts_demo_product_val_2](https://github.com/arpan-banerjee7/crafts_demo_product_val_2)
+- [crafts_demo_product_val_3](https://github.com/arpan-banerjee7/crafts_demo_product_val_3)
+- [crafts_demo_product_val_4](https://github.com/arpan-banerjee7/crafts_demo_product_val_4)
+
+
+# HLD
+![user-profile-validation-system_HLD (1)](https://github.com/arpan-banerjee7/crafts-demo-profile-crud-service/assets/62155359/a34b2940-8e37-4ba7-b992-e926ac887567)
+
+# UI Screenshots
+![image](https://github.com/arpan-banerjee7/crafts-demo-profile-crud-service/assets/62155359/3c0ed446-9297-4f41-9fea-d7ae2448ecfc)
+
+![image](https://github.com/arpan-banerjee7/crafts-demo-profile-crud-service/assets/62155359/21e78d0a-76b4-4d8a-bd6c-f2754ce3d033)
+
+![image](https://github.com/arpan-banerjee7/crafts-demo-profile-crud-service/assets/62155359/79ad8f33-bdcb-4102-926d-c0f1cde3667d)
+
+
+
 
